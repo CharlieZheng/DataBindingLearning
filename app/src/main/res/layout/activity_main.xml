@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="com.cndatacom.databindinglearning.entity.User" alias="MyUser"/>
+
+        <variable
+            name="user"
+            type="MyUser"/>
+    </data>
+    <!-- 原先的根节点（Root Element） -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.firstName}"/>
+    </RelativeLayout>
+</layout>
