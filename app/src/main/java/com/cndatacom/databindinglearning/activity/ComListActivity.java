@@ -16,8 +16,6 @@ import com.cndatacom.databindinglearning.databinding.ActivityComListBinding;
 import com.cndatacom.databindinglearning.entity.BaseResponse;
 import com.cndatacom.databindinglearning.entity.Commodity;
 import com.cndatacom.databindinglearning.impl.ICommodityService;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,12 +68,10 @@ public class ComListActivity extends AppCompatActivity {
         final ICommodityService service = retrofit.create(ICommodityService.class);
         final long curTime = System.currentTimeMillis();
         Log.v(TAG, "" + curTime);
-        service.getComList("logistics_1.0", "android", "" + curTime, "15110909555395800001", "15110915224911700001", "", "", "", 10, 1, "").map(new Func1<BaseResponse, List<Commodity>>() {
+        service.getComList("logistics_1.0", "android", "" + curTime, "15110909555395800001", "15110915224911700001", "", "", "", 10, 1, "").map(new Func1<BaseResponse<Commodity>, List<Commodity>>() {
             @Override
-            public List<Commodity> call(BaseResponse response) {
-                Gson gson = new Gson();
-                return gson.fromJson(gson.toJson(response.getDatas().getItems()), new TypeToken<List<Commodity>>() {
-                }.getType());
+            public List<Commodity> call(BaseResponse<Commodity> response) {
+                return response.getDatas().getItems();
             }
         }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<Commodity>>() {
             @Override
